@@ -46,7 +46,7 @@ const App = () => {
   return (
     <div>
       {user ? (
-        <Home handleLogout={handleLogout} userId={userId} />
+        <Home handleLogout={handleLogout} data={data} userId={userId} />
       ) : (
         <Login
           email={email}
