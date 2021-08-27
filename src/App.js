@@ -1,25 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import './App.css'
+import Login from './Component/Login'
+import Home from './Component/Home.js'
+const App = () => {
+  let [user, setUser] = useState('')
+  let [email, setEmail] = useState('')
+  let [password, setPassword] = useState('')
+  let [emailError, setEmailError] = useState('')
+  let [passwordError, setPasswordError] = useState('')
+  let [hasAccount, setHasAccount] = useState(true)
+  let [userId, setUserId] = useState('')
+  const clearInputs = () => {
+    setEmail = ''
+    setPassword = ''
+  }
+  const getDetail = async () => {
+    await fetch(`https://api.github.com/users`)
+      .then((result) => result.json())
+      .then((resp) => console.log(resp, 'api'))
+  }
 
-function App() {
+  const clearErrors = () => {
+    setEmailError = ''
+    setPasswordError = ''
+  }
+
+  const handleLogin = () => {
+    setUser(1)
+    getDetail()
+  }
+
+  const handlesignup = () => {}
+
+  const handleLogout = () => {
+    setUser(0)
+    setUserId('')
+  }
+
+  const authListener = () => {}
+  useEffect(() => {}, [])
+  console.log('login', user)
+  console.log('logout', user)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {user ? (
+        <Home handleLogout={handleLogout} userId={userId} />
+      ) : (
+        <Login
+          email={email}
+          setEmail={setEmail}
+          setPassword={setPassword}
+          password={password}
+          handleLogin={handleLogin}
+          handlesignup={handlesignup}
+          hasAccount={hasAccount}
+          setHasAccount={setHasAccount}
+          emailError={emailError}
+          passwordError={passwordError}
+        />
+      )}
     </div>
-  );
+  )
 }
-
-export default App;
+export default App
