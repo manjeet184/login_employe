@@ -10,6 +10,7 @@ const App = () => {
   let [passwordError, setPasswordError] = useState('')
   let [hasAccount, setHasAccount] = useState(true)
   let [userId, setUserId] = useState('')
+  const [data, setData] = useState([])
   const clearInputs = () => {
     setEmail = ''
     setPassword = ''
@@ -17,8 +18,9 @@ const App = () => {
   const getDetail = async () => {
     await fetch(`https://api.github.com/users`)
       .then((result) => result.json())
-      .then((resp) => console.log(resp, 'api'))
+      .then((resp) => setData(resp))
   }
+  console.log(data, 'api')
 
   const clearErrors = () => {
     setEmailError = ''
